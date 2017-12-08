@@ -2,8 +2,9 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { MaterialModule} from '../material/material.module';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
-import { ToastComponent } from './toast/toast.component';
 import { LoadingComponent } from './loading/loading.component';
 
 @NgModule({
@@ -11,7 +12,9 @@ import { LoadingComponent } from './loading/loading.component';
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    MaterialModule,
+    FlexLayoutModule,
   ],
   exports: [
     // Shared Modules
@@ -19,16 +22,14 @@ import { LoadingComponent } from './loading/loading.component';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
+    MaterialModule,
+    FlexLayoutModule,
     // Shared Components
-    ToastComponent,
     LoadingComponent
   ],
   declarations: [
-    ToastComponent,
     LoadingComponent
   ],
-  providers: [
-    ToastComponent
-  ]
+  providers: []
 })
 export class SharedModule { }

@@ -1,31 +1,52 @@
-<div class="container">
+<nav>
+    <mat-toolbar fxLayout="row"  color="primary">
+      <!-- SHOW navigation in toolbar above 600px screen -->
+      <mat-nav-list fxShow fxHide.xs="true" fxFlex fxLayoutAlign="space-around" fxLayoutWrap>
+        <mat-list-item routerLink="/cats" routerLinkActive="active">
+          <mat-icon>favorite_border</mat-icon> Cats
+        </mat-list-item>
+        <mat-list-item routerLink="/login" routerLinkActive="active" *ngIf="!auth.loggedIn">
+          <mat-icon>person</mat-icon> Login
+        </mat-list-item>
+        <mat-list-item routerLink="/register" routerLinkActive="active" *ngIf="!auth.loggedIn">
+          <mat-icon>person_add</mat-icon> Register
+        </mat-list-item>
+        <mat-list-item routerLink="/logout" routerLinkActive="active" *ngIf="auth.loggedIn">
+              <mat-icon>person_outline</mat-icon> Logout
+        </mat-list-item>
+        <mat-list-item routerLink="/about" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
+            <mat-icon>school</mat-icon> About
+        </mat-list-item>
+      </mat-nav-list>
+      <!-- SHOW burger-menu navigation in toolbar below 600px wide screen-->
+      <button fxShow fxHide.gt-xs="true" mat-icon-button (click)="snav.toggle()"><mat-icon>menu</mat-icon></button>
+    </mat-toolbar>
+</nav>
+  <mat-sidenav-container style="position: static"  (backdropClick)="snav.close()">
+    <mat-sidenav #snav mode="push" opened="false" (keydown.escape)="snav.close()" >
+      <mat-nav-list fxLayout="column" fxLayoutGap="8px" fxLayoutAlign="start">
+        <mat-list-item>
+          <a matLine>Add Alert</a>
+          <button mat-icon-button>
+            <mat-icon>add_box</mat-icon>
+          </button>
+        </mat-list-item>
+        <mat-list-item>
+          <a (click)="snav.close()" matLine>Coin Listing</a>
+          <button mat-icon-button>
+            <mat-icon>attach_money</mat-icon>
+          </button>
+        </mat-list-item>
+        <mat-list-item>
+          <a (click)="snav.close()" matLine>Manage Account</a>
+          <button mat-icon-button>
+            <mat-icon>account_box</mat-icon>
+          </button>
+        </mat-list-item>
+      </mat-nav-list>
+    </mat-sidenav>
+    <mat-sidenav-content style="height: 100%">
+      <router-outlet></router-outlet>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
 
-  <nav class="navbar navbar-dark bg-primary">
-    <div class="nav navbar-nav">
-      <a routerLink="/" class="nav-item nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
-        <i class="fa fa-home"></i> Home
-      </a>
-      <a routerLink="/cats" class="nav-item nav-link" routerLinkActive="active">
-        <i class="fa fa-list"></i> Cats
-      </a>
-      <a routerLink="/login" class="nav-item nav-link" routerLinkActive="active" *ngIf="!auth.loggedIn">
-        <i class="fa fa-sign-in"></i> Login
-      </a>
-      <a routerLink="/register" class="nav-item nav-link" routerLinkActive="active" *ngIf="!auth.loggedIn">
-        <i class="fa fa-user-plus"></i> Register
-      </a>
-      <a routerLink="/account" class="nav-item nav-link" routerLinkActive="active" *ngIf="auth.loggedIn">
-        <i class="fa fa-user"></i> Account ({{auth.currentUser.username}})
-      </a>
-      <a routerLink="/admin" class="nav-item nav-link" routerLinkActive="active" *ngIf="auth.loggedIn && auth.isAdmin">
-        <i class="fa fa-lock"></i> Admin
-      </a>
-      <a routerLink="/logout" class="nav-item nav-link" routerLinkActive="active" *ngIf="auth.loggedIn">
-        <i class="fa fa-sign-out"></i> Logout
-      </a>
-    </div>
-  </nav>
-
-  <router-outlet></router-outlet>
-
-</div>

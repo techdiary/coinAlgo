@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 import { CatService } from '../services/cat.service';
-import { ToastComponent } from '../shared/toast/toast.component';
 import { Cat } from '../shared/models/cat.model';
 
 @Component({
@@ -23,8 +22,7 @@ export class CatsComponent implements OnInit {
   weight = new FormControl('', Validators.required);
 
   constructor(private catService: CatService,
-              private formBuilder: FormBuilder,
-              public toast: ToastComponent) { }
+              private formBuilder: FormBuilder) { }
 
   ngOnInit() {
     this.getCats();
@@ -48,7 +46,7 @@ export class CatsComponent implements OnInit {
       res => {
         this.cats.push(res);
         this.addCatForm.reset();
-        this.toast.setMessage('item added successfully.', 'success');
+        // this.toast.setMessage('item added successfully.', 'success');
       },
       error => console.log(error)
     );
@@ -62,7 +60,7 @@ export class CatsComponent implements OnInit {
   cancelEditing() {
     this.isEditing = false;
     this.cat = new Cat();
-    this.toast.setMessage('item editing cancelled.', 'warning');
+    // this.toast.setMessage('item editing cancelled.', 'warning');
     // reload the cats to reset the editing
     this.getCats();
   }
@@ -72,7 +70,7 @@ export class CatsComponent implements OnInit {
       () => {
         this.isEditing = false;
         this.cat = cat;
-        this.toast.setMessage('item edited successfully.', 'success');
+        // this.toast.setMessage('item edited successfully.', 'success');
       },
       error => console.log(error)
     );
@@ -84,7 +82,7 @@ export class CatsComponent implements OnInit {
         () => {
           const pos = this.cats.map(elem => elem._id).indexOf(cat._id);
           this.cats.splice(pos, 1);
-          this.toast.setMessage('item deleted successfully.', 'success');
+          // this.toast.setMessage('item deleted successfully.', 'success');
         },
         error => console.log(error)
       );
